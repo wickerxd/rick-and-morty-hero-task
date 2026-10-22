@@ -22,7 +22,7 @@ export function useCharacters(page: Ref<number>) {
   })
 }
 
-export function useCharacter(id: Ref<number>) {
+export function useCharacter(id: Ref<string>) {
   return useQuery({
     queryKey: ['character', id],
     queryFn: async ({ signal }) => {
@@ -43,6 +43,22 @@ export function useCharacterCount() {
       if (!res.ok) throw new Error(`Request failed (${res.status})`)
       const { info } = await res.json()
       return info.count
+    },
+  })
+}
+
+export function useFavouriteCharacters(ids: Ref<string[]>) {
+  return useQuery({
+    queryKey: ['characters', 'favourites', ids],
+    placeholderData: keepPreviousData,
+    queryFn: async ({ signal }): Promise<Character[]> => {
+      if (!ids.value.length) return []
+
+      const res = await fetch(`${BASE_URL}/character/${ids.value.join(',')}`, { signal })
+      if (!res.ok) throw new Error(`Request failed (${res.status})`)
+
+      const data: Character | Character[] = await res.json()
+      return Array.isArray(data) ? data : [data]
     },
   })
 }

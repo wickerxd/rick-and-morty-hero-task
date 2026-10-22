@@ -3,7 +3,11 @@
     class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-1 md:mb-4"
     v-if="data?.length && !isLoading"
   >
-    <CharacterCard v-for="character in data" :character="character" />
+    <CharacterCard
+      v-for="character in data"
+      :character="character"
+      @click="router.push(`/character/${character.id}`)"
+    />
   </section>
 
   <p v-else-if="isLoading" class="text-center text-slate-500 dark:text-slate-400">

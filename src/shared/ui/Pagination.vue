@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { watch } from 'vue'
+
 const props = defineProps<{ totalPages: number; disabled?: boolean }>()
 const page = defineModel<number>({ required: true })
 
@@ -8,6 +10,8 @@ function go(e: Event) {
   if (n >= 1) page.value = Math.min(n, props.totalPages)
   input.value = String(page.value)
 }
+
+watch(page, () => window.scrollTo({ top: 0, behavior: 'smooth' }))
 </script>
 
 <template>
