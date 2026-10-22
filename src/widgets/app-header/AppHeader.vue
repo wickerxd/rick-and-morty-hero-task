@@ -1,7 +1,7 @@
 <template>
   <header class="flex flex-col gap-4 md:gap-0 md:flex-row md:justify-between md:items-center">
-    <h1 class="hoverable">
-      <RouterLink to="/"> Rick and Morty Hero Citadel </RouterLink>
+    <h1 class="hoverable text-center">
+      <RouterLink to="/"> Citadel Log </RouterLink>
     </h1>
 
     <nav class="flex flex-row items-center justify-between gap-4">
