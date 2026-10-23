@@ -25,6 +25,7 @@
 
         <input
           id="name"
+          name="name"
           v-model="name"
           type="text"
           placeholder="Rick Sanchez"
@@ -43,22 +44,22 @@
         <legend class="mb-1 font-medium">Gender</legend>
 
         <label class="flex items-center gap-2">
-          <input v-model="gender" type="radio" value="Male" />
+          <input v-model="gender" type="radio" value="Male" name="Male" />
           Male
         </label>
 
         <label class="flex items-center gap-2">
-          <input v-model="gender" type="radio" value="Female" />
+          <input v-model="gender" type="radio" value="Female" name="Female" />
           Female
         </label>
 
         <label class="flex items-center gap-2">
-          <input v-model="gender" type="radio" value="Genderless" />
+          <input v-model="gender" type="radio" value="Genderless" name="Genderless" />
           Genderless
         </label>
 
         <label class="flex items-center gap-2">
-          <input v-model="gender" type="radio" value="unknown" />
+          <input v-model="gender" type="radio" value="unknown" name="unknown" />
           Unknown
         </label>
 
@@ -72,6 +73,7 @@
 
         <input
           id="imageUrl"
+          name="url"
           v-model="imageUrl"
           type="url"
           placeholder="https://example.com/image.jpg"
@@ -92,6 +94,22 @@
       >
         Submit
       </button>
+
+      <Transition
+        enter-active-class="transition duration-200"
+        leave-active-class="transition duration-300"
+        enter-from-class="opacity-0"
+        leave-to-class="opacity-0"
+      >
+        <p
+          v-if="isCharacterCreated"
+          role="status"
+          class="font-medium text-hover dark:text-hover-dark"
+          data-testid="confirmation-message"
+        >
+          Character has been created successfully
+        </p>
+      </Transition>
     </fieldset>
   </form>
 </template>
@@ -101,8 +119,11 @@ import { useForm, useField } from 'vee-validate'
 import { useCreatedCharacterStore } from '@/app/providers/createdCharacterStore'
 import type { CharacterGender, CreatedCharacter } from '@/entities/character/model/model'
 import BackButton from '@/shared/ui/BackButton.vue'
+import { ref } from 'vue'
 
 const createdCharacterStore = useCreatedCharacterStore()
+const isCharacterCreated = ref(false)
+let timer: ReturnType<typeof setTimeout> | undefined
 
 const { handleSubmit, meta, resetForm } = useForm({
   initialValues: {
@@ -144,5 +165,12 @@ const onSubmit = handleSubmit((values) => {
 
   createdCharacterStore.createCharacter(character)
   resetForm()
+  showSuccess()
 })
+
+function showSuccess() {
+  isCharacterCreated.value = true
+  clearTimeout(timer)
+  timer = setTimeout(() => (isCharacterCreated.value = false), 3500)
+}
 </script>

@@ -9,7 +9,7 @@
     </h1>
     <nav class="flex flex-row items-center justify-between gap-4">
       <RouterLink class="hoverable-glow" to="/favourite">Favourite Characters</RouterLink>
-      <RouterLink class="hoverable-glow" to="/create">Create a character </RouterLink>
+      <RouterLink class="hoverable-glow" to="/create">Create a Character</RouterLink>
       <button
         type="button"
         aria-label="Toggle theme"

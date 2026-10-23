@@ -9,6 +9,7 @@
 
   <section
     class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-1 md:mb-4"
+    data-testid="main-cast"
     v-if="characters?.length && !isLoading"
   >
     <CharacterCard
