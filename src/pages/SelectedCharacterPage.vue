@@ -1,31 +1,11 @@
-<script setup lang="ts">
-import { useCharacter } from '@/entities/character/api/characterQueries'
-import { CharacterStatus } from '@/entities/character/model/model'
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-import { useFavouriteCharacterStore } from '@/app/providers/favoureCharacterStore'
-const route = useRoute()
-const id = computed(() => String(route.params.characterId))
-const { data, isLoading } = useCharacter(id)
-
-const episodes = computed(() => data.value?.episode ?? [])
-
-const favouriteCharacterStore = useFavouriteCharacterStore()
-
-const statusColors = {
-  Alive: 'bg-portal-strong dark:bg-portal',
-  Dead: 'bg-blood',
-  unknown: 'bg-slate-400',
-} satisfies Record<string, string>
-
-const statusDot = computed(() => statusColors[data.value?.status ?? 'unknown'])
-
-const statusLabel = computed(() =>
-  data.value?.status === CharacterStatus.Unknown ? 'Unknown' : data.value?.status,
-)
-</script>
-
 <template>
+  <h2
+    class="mb-4 border-l-4 border-hover pl-3 font-display text-2xl font-bold uppercase tracking-widest text-slate-900 dark:border-hover-dark dark:text-white"
+  >
+    Selected Character
+  </h2>
+  <BackButton />
+
   <article
     v-if="data"
     class="overflow-hidden rounded-xl border border-day-border bg-white shadow-sm dark:border-transparent dark:bg-night-surface dark:shadow-none"
@@ -140,3 +120,33 @@ const statusLabel = computed(() =>
     </p>
   </section>
 </template>
+<script setup lang="ts">
+import { useCharacter } from '@/entities/character/api/characterQueries'
+import { CharacterStatus } from '@/entities/character/model/model'
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useFavouriteCharacterStore } from '@/app/providers/favoureCharacterStore'
+import BackButton from '@/shared/ui/BackButton.vue'
+
+const route = useRoute()
+const router = useRouter()
+
+const id = computed(() => String(route.params.characterId))
+const { data, isLoading } = useCharacter(id)
+
+const episodes = computed(() => data.value?.episode ?? [])
+
+const favouriteCharacterStore = useFavouriteCharacterStore()
+
+const statusColors = {
+  Alive: 'bg-portal-strong dark:bg-portal',
+  Dead: 'bg-blood',
+  unknown: 'bg-slate-400',
+} satisfies Record<string, string>
+
+const statusDot = computed(() => statusColors[data.value?.status ?? 'unknown'])
+
+const statusLabel = computed(() =>
+  data.value?.status === CharacterStatus.Unknown ? 'Unknown' : data.value?.status,
+)
+</script>

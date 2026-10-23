@@ -8,8 +8,8 @@
       </RouterLink>
     </h1>
     <nav class="flex flex-row items-center justify-between gap-4">
-      <RouterLink class="hoverable-glow" to="/favourite">Favourites</RouterLink>
-      <RouterLink class="hoverable-glow" to="/create">Create a hero</RouterLink>
+      <RouterLink class="hoverable-glow" to="/favourite">Favourite Characters</RouterLink>
+      <RouterLink class="hoverable-glow" to="/create">Create a character </RouterLink>
       <button
         type="button"
         aria-label="Toggle theme"

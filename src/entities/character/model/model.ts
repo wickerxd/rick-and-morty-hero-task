@@ -18,19 +18,29 @@ export interface LocationRef {
   name: string
 }
 
-export interface FavouriteCharacter extends Character {
-  isFavourite: boolean
-}
-
-const CharacterGender = {
+export const CharacterGender = {
   Female: 'Female',
   Male: 'Male',
   Genderless: 'Genderless',
   Unknown: 'unknown',
 } as const
 
-type CharacterGender = (typeof CharacterGender)[keyof typeof CharacterGender]
+export type CharacterGender = (typeof CharacterGender)[keyof typeof CharacterGender]
 
 export const CharacterStatus = { Alive: 'Alive', Dead: 'Dead', Unknown: 'unknown' } as const
 
 export type CharacterStatus = (typeof CharacterStatus)[keyof typeof CharacterStatus]
+
+export interface CreatedCharacter {
+  id: string
+  name: string
+  gender: CharacterGender
+  image: string
+}
+
+export interface CharacterFilters {
+  name?: string
+  species?: string
+  status?: CharacterStatus
+  gender?: CharacterGender
+}

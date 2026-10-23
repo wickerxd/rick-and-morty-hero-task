@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from '@/pages/MainPage.vue'
-import CreateHeroPage from '@/pages/CreateHeroPage.vue'
+import CreatedCharacterPage from '@/pages/CreateCharacterPage.vue'
 import FavouritesPage from '@/pages/FavouritesPage.vue'
-import SelectedHeroPage from '@/pages/SelectedHeroPage.vue'
-
+import SelectedCharacterPage from '@/pages/SelectedCharacterPage.vue'
+import SelectedCreatedCharacterPage from '@/pages/SelectedCreatedCharacterPage.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -15,7 +15,12 @@ const router = createRouter({
     {
       path: '/create',
       name: 'create_hero',
-      component: CreateHeroPage,
+      component: CreatedCharacterPage,
+    },
+    {
+      path: '/created_character/:characterId',
+      name: 'selected_created_character',
+      component: SelectedCreatedCharacterPage,
     },
     {
       path: '/favourite',
@@ -25,7 +30,7 @@ const router = createRouter({
     {
       path: '/character/:characterId',
       name: 'selected_character',
-      component: SelectedHeroPage,
+      component: SelectedCharacterPage,
     },
   ],
 })

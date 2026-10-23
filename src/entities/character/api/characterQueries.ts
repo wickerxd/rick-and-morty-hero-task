@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from '@tanstack/vue-query'
-import type { Ref } from 'vue'
-import type { Character } from '../model/model'
+import { computed, type Ref } from 'vue'
+import type { Character, CharacterFilters } from '../model/model'
 
 const BASE_URL = 'https://rickandmortyapi.com/api'
 export const PAGE_SIZE = 12
@@ -59,6 +59,27 @@ export function useFavouriteCharacters(ids: Ref<string[]>) {
 
       const data: Character | Character[] = await res.json()
       return Array.isArray(data) ? data : [data]
+    },
+  })
+}
+
+export const hasFilters = (f: CharacterFilters) => Object.values(f).some(Boolean)
+
+export function useFilteredCharacters(page: Ref<number>, filters: Ref<CharacterFilters>) {
+  return useQuery({
+    queryKey: ['characters', 'filtered', page, filters],
+    enabled: computed(() => hasFilters(filters.value)),
+    placeholderData: keepPreviousData,
+    queryFn: async ({ signal }) => {
+      const entries = Object.entries({ ...filters.value, page: page.value }).filter(([, v]) => v)
+      const params = new URLSearchParams(entries.map(([k, v]) => [k, String(v)]))
+
+      const res = await fetch(`${BASE_URL}/character/?${params}`, { signal })
+      if (res.status === 404) return { items: [] as Character[], totalPages: 0 }
+      if (!res.ok) throw new Error(`Request failed (${res.status})`)
+
+      const data = await res.json()
+      return { items: data.results as Character[], totalPages: data.info.pages as number }
     },
   })
 }

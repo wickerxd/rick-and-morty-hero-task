@@ -1,4 +1,10 @@
 <template>
+  <h2
+    class="mb-4 border-l-4 border-hover pl-3 font-display text-2xl font-bold uppercase tracking-widest text-slate-900 dark:border-hover-dark dark:text-white"
+  >
+    Favourite Characters
+  </h2>
+
   <section
     class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-1 md:mb-4"
     v-if="data?.length && !isLoading"
