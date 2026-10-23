@@ -1,17 +1,20 @@
 <template>
-  <header class="flex flex-col gap-4 md:gap-0 md:flex-row md:justify-between md:items-center">
-    <h1 class="hoverable">
-      <RouterLink to="/"> Rick and Morty Hero Citadel </RouterLink>
+  <header
+    class="flex flex-col border-b border-gray-600 py-4 gap-4 justify-center md:gap-0 md:flex-row md:justify-between md:items-center"
+  >
+    <h1 class="text-center hoverable-glow inline-block font-display text-4xl font-bold sm:text-5xl">
+      <RouterLink to="/">
+        Citadel <span class="text-hover dark:text-hover-dark">Log</span>
+      </RouterLink>
     </h1>
-
     <nav class="flex flex-row items-center justify-between gap-4">
-      <RouterLink class="hoverable" to="/create">Favourites</RouterLink>
-      <RouterLink class="hoverable" to="/favourite">Create a hero</RouterLink>
+      <RouterLink class="hoverable-glow" to="/favourite">Favourite Characters</RouterLink>
+      <RouterLink class="hoverable-glow" to="/create">Create a character </RouterLink>
       <button
         type="button"
         aria-label="Toggle theme"
         @click="toggleDark()"
-        class="group grid h-9 w-9 place-items-center text-slate-700 transition duration-200 hover:text-hover hover:border-hover dark:border-night-border dark:text-slate-200 dark:hover:text-hover-dark dark:hover:border-hover-dark"
+        class="group cursor-pointer grid h-9 w-9 place-items-center text-slate-700 transition duration-200 hover:text-hover hover:border-hover dark:border-night-border dark:text-slate-200 dark:hover:text-hover-dark dark:hover:border-hover-dark"
       >
         <MoonSvg v-if="isDark" />
         <SunSvg v-else />

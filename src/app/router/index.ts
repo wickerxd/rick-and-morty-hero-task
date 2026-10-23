@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from '@/pages/MainPage.vue'
-import CreateHeroPage from '@/pages/CreateHeroPage.vue'
-import FavouritesPage from '@/pages/MainPage.vue'
-import SelectedHeroPage from '@/pages/SelectedHeroPage.vue'
-
+import CreatedCharacterPage from '@/pages/CreateCharacterPage.vue'
+import FavouritesPage from '@/pages/FavouritesPage.vue'
+import SelectedCharacterPage from '@/pages/SelectedCharacterPage.vue'
+import SelectedCreatedCharacterPage from '@/pages/SelectedCreatedCharacterPage.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -15,24 +15,22 @@ const router = createRouter({
     {
       path: '/create',
       name: 'create_hero',
-      component: CreateHeroPage,
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      // component: () => import('../views/AboutView.vue'),
+      component: CreatedCharacterPage,
+    },
+    {
+      path: '/created_character/:characterId',
+      name: 'selected_created_character',
+      component: SelectedCreatedCharacterPage,
     },
     {
       path: '/favourite',
       name: 'favourite',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: FavouritesPage,
     },
     {
       path: '/character/:characterId',
-      name: 'selected_chracacter',
-      component: SelectedHeroPage,
+      name: 'selected_character',
+      component: SelectedCharacterPage,
     },
   ],
 })
